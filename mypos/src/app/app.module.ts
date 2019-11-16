@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { StockHomeComponent } from './components/stock/stock-home/stock-home.component';
 import { StockCreateComponent } from './components/stock/stock-create/stock-create.component';
 import { StockEditComponent } from './components/stock/stock-edit/stock-edit.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StockEditComponent } from './components/stock/stock-edit/stock-edit.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,17 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private networkService: NetworkService) { }
 
   ngOnInit() {
   }
 
   login(ngForm : NgForm){
-    alert(JSON.stringify(ngForm.value))
+      this.networkService.login(ngForm.value).subscribe(
+        data => {
+          console.log(data);
+        }
+      );
   }
 
 }
