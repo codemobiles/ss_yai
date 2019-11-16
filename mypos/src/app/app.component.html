@@ -1,4 +1,19 @@
 
 
-<router-outlet></router-outlet>
+<div *ngIf="true then stock;else login"></div>
+
+<ng-template #login>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<ng-template #stock>
+  <app-header></app-header>
+  <app-menu></app-menu>
+  <app-stock-home></app-stock-home>
+  <app-footer></app-footer>
+</ng-template>
+
+
+
+
 

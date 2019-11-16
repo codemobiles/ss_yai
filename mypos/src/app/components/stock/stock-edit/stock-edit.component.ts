@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-stock-edit',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activateRoute.params.subscribe(
+      params => {
+        alert(params.id)
+      }
+    );
   }
 
 }

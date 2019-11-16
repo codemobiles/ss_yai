@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using mypos_api.Extensions;
 
 namespace mypos_api.Controllers
 {
@@ -36,7 +37,8 @@ namespace mypos_api.Controllers
         {
             try
             {
-                return Ok("tanakorn ngam....");
+                var testExtension = "Codemobiles";
+                return Ok(testExtension.ToBath());
             }
             catch (Exception)
             {
