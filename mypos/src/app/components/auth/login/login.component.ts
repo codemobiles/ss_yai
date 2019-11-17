@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NetworkService } from 'src/app/services/network.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { NetworkService } from 'src/app/services/network.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private networkService: NetworkService) { }
+  constructor(private networkService: NetworkService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   login(ngForm : NgForm){
       this.networkService.login(ngForm.value).subscribe(
         data => {
-          console.log(data);
+          this.router.navigate(["/stock"]);
         }
       );
   }

@@ -1,8 +1,14 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using mypos_api.Database;
 
 namespace mypos_api.Extensions
 {
@@ -36,7 +42,6 @@ namespace mypos_api.Extensions
                                        Url = new Uri("http://codemobiles.com"),
                                    },
                                });
-
                                var securitySchema = new OpenApiSecurityScheme
                                {
                                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -98,5 +103,30 @@ namespace mypos_api.Extensions
             });
 
         }
+
+        public static void ConfigDatabase(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<DatabaseContext>(options => 
+            options.UseSqlServer(configuration.GetConnectionString("ConnectionSQLServer")));
+        }
+
+        public static void ConfigJWT(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero, // disable delay when token is expire
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
+        }
+
     }
 }

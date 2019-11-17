@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { ResponseLogin, ResponseRegister } from '../models/user.model';
+import { ProductAllResponse } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +25,16 @@ export class NetworkService {
   constructor(private httpClient: HttpClient) {
   }
 
-  login(formData): Observable<any> {
-    return this.httpClient.post<any>(this.loginURL, formData);
+  login(formData): Observable<ResponseLogin> {
+    return this.httpClient.post<ResponseLogin>(this.loginURL, formData);
+  }
+
+  register(formData): Observable<ResponseRegister> {
+    return this.httpClient.post<ResponseRegister>(this.registerURL, formData);
+  }
+
+  getProductAll(): Observable<ProductAllResponse> {
+    return this.httpClient.get<ProductAllResponse>(this.registerURL);
   }
 }
 
