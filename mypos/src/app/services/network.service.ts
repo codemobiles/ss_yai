@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { ResponseLogin, ResponseRegister } from '../models/user.model';
-import { ProductAllResponse } from '../models/product.model';
+import { ProductAllResponse, Product, ProductResponse } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,31 @@ export class NetworkService {
 
   getProductAll(): Observable<ProductAllResponse> {
     return this.httpClient.get<ProductAllResponse>(this.productURL);
+  }
+
+  getProduct(id: number): Observable<ProductResponse> {
+    return this.httpClient.get<ProductResponse>(`${this.productURL}/${id}`);
+  }
+
+  deleteProduct(id: number): Observable<ProductAllResponse> {
+    return this.httpClient.delete<ProductAllResponse>(`${this.productURL}/${id}`);
+  }
+
+  addProduct(product: Product): Observable<ProductAllResponse> {
+    return this.httpClient.post<ProductAllResponse>(this.productURL, this.makeFormData(product));
+  }
+
+  editProduct(product: Product, id: number): Observable<ProductAllResponse> {
+    return this.httpClient.put<ProductAllResponse>(`${this.productURL}/${id}`, this.makeFormData(product));
+  }
+
+  makeFormData(product: Product): FormData {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('price', `${product.price}`);
+    formData.append('stock', `${product.stock}`);
+    formData.append('upload_file', product.image);
+    return formData;
   }
 }
 

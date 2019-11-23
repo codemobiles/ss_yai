@@ -3,6 +3,11 @@ export interface ProductAllResponse {
   message: string;
 }
 
+export interface ProductResponse {
+  result:  Product;
+  message: string;
+}
+
 export class Product {
   productId: number;
   name:      string;

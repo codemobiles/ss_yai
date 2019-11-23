@@ -51,16 +51,20 @@ namespace mypos_api.Services
 
             if (result != null)
             {
-                string images = await UploadProductImages();
-                if (images != null)
+                string images = await UploadProductImages();  // "....jpg"
+                if (images != String.Empty)
                 {
                     result.Image = images;
                 }
-                _context.Products.Update(product);
+                result.Name = product.Name;
+                result.Price = product.Price;
+                result.Stock = product.Stock;
+
+                _context.Products.Update(result);
                 _context.SaveChanges();
             }
 
-            return product;
+            return result;
         }
 
         public Products GetProduct(int id)
