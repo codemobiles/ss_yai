@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { Product } from 'src/app/models/product.model';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-stock-home',
@@ -11,12 +13,12 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class StockHomeComponent implements OnInit {
 
-  mDataArray = [11,22,33,44,55,66,77]
+  mDataArray: Product[]
 
   // RX Reactive programming
   searchTextChanged = new Subject<string>();
 
-  constructor(private router: Router) { }
+  constructor(private networkService: NetworkService, private router: Router) { }
 
   ngOnInit() {
     this.searchTextChanged.pipe(
@@ -24,6 +26,19 @@ export class StockHomeComponent implements OnInit {
     ).subscribe( result => {
       console.log(result);
     })
+
+    this.feedData()
+  }
+
+  feedData() {
+    this.networkService.getProductAll().subscribe(
+      data => {
+        this.mDataArray = data.result.map( item => {
+          item.image = `${this.networkService.productImageURL}/${item.image}`
+          return item
+        })
+      }
+    );
   }
 
   edit(id: Number){

@@ -34,7 +34,7 @@ export class NetworkService {
   }
 
   getProductAll(): Observable<ProductAllResponse> {
-    return this.httpClient.get<ProductAllResponse>(this.registerURL);
+    return this.httpClient.get<ProductAllResponse>(this.productURL);
   }
 }
 

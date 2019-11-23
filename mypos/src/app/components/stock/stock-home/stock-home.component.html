@@ -37,7 +37,8 @@
       <div class="card-body">
         <div class="row card-body-header">
           <div class="col-5">
-            <input (keyup)="searchTextChanged.next($event.target.value)" class="form-control input-lg" placeholder="Enter search keyword">
+            <input (keyup)="searchTextChanged.next($event.target.value)" class="form-control input-lg"
+              placeholder="Enter search keyword">
           </div>
           <div class="col-7">
             <a class="btn btn-success float-right btn-add" [routerLink]="['/stock/create']">เพิ่ม</a>
@@ -55,16 +56,26 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of mDataArray">
-              <td class="text-center">{{ item }}</td>
+              <td class="text-center">{{ item.productId }}</td>
               <td>
-                <img src="assets/images/no_photo.jpg" class="product_image">
-                <strong class="product_name">XXXX</strong>
+
+                <div *ngIf="item.image != null then show; else hide"></div>
+
+                <ng-template #show>
+                  <img src="{{item.image}}" class="product_image">
+                </ng-template>
+
+                <ng-template #hide>
+                  <img src="assets/images/no_photo.jpg" class="product_image">
+                </ng-template>
+
+                <strong class="product_name">{{ item.name }}</strong>
               </td>
-              <td>฿XXXXXX</td>
-              <td>XXXXX PCS.</td>
+              <td>฿{{ item.price | number : '1.2-2' }}</td>
+              <td>{{item.stock}} PCS.</td>
               <td class="text-center">
-                <img src="assets/images/ic_edit.png" (click)="edit(1)" class="edit_product">
-                <img src="assets/images/ic_delete.png" (click)="delete(1)" class="delete_product">
+                <img src="assets/images/ic_edit.png" (click)="edit(item.productId)" class="edit_product">
+                <img src="assets/images/ic_delete.png" (click)="delete(item.productId)" class="delete_product">
               </td>
             </tr>
           </tbody>

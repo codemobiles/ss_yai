@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import 'rxjs/add/operator/do';
 import { Injectable } from '@angular/core';
 
+
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
@@ -18,16 +19,15 @@ export class JwtInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const jwtToken = JSON.parse(
-      localStorage.getItem(environment.keyLocalAuthenInfo)
-    );
+
+    const jwtToken = localStorage.getItem(environment.keyLocalAuthenInfo)
 
     if (jwtToken != null) {
       const cloned = req.clone({
         headers: req.headers.set('Authorization', 'bearer ' + jwtToken)
       });
 
-      // simple way
+        // simple way
       // return next.handle(cloned);
 
       // Intercept response too

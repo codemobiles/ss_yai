@@ -37,7 +37,7 @@ namespace mypos_api.Controllers
                 }
                 else
                 {
-                    return Ok(new { result = result, message = "request successfully"});
+                    return Ok(new { result = result, message = "request successfully" });
                 }
             }
             catch (Exception error)
@@ -128,8 +128,19 @@ namespace mypos_api.Controllers
             }
         }
 
-
-
-
+        [AllowAnonymous]
+        [HttpGet("images/{name}")]
+        public IActionResult GetImage(string name)
+        {
+            try
+            {
+                return File($"~/images/{name}", "image/jpg");
+                // return File($"~/images/{name}", "image/jpg", "abc.jpg");
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
