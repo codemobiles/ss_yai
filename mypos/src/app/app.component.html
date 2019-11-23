@@ -1,6 +1,6 @@
 
 
-<div *ngIf="false then stock;else login"></div>
+<div *ngIf="authService.isLogin() then stock;else login"></div>
 
 <ng-template #login>
   <router-outlet></router-outlet>
@@ -9,7 +9,7 @@
 <ng-template #stock>
   <app-header></app-header>
   <app-menu></app-menu>
-  <app-stock-home></app-stock-home>
+  <router-outlet></router-outlet>
   <app-footer></app-footer>
 </ng-template>
 

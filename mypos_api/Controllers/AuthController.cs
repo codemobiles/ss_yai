@@ -11,7 +11,6 @@ using mypos_api.ViewModels;
 
 namespace mypos_api.Controllers
 {
-
     [ApiController]
     [AllowAnonymous]
     [Route("api/[controller]")]  // ..../api/auth
