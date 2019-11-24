@@ -9,8 +9,6 @@ import { ProductAllResponse, Product, ProductResponse } from '../models/product.
   providedIn: 'root'
 })
 export class NetworkService {
-
-
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private hostURL = environment.baseAPIURL;
   private apiURL = `${this.hostURL}/api`;
@@ -60,6 +58,10 @@ export class NetworkService {
     formData.append('stock', `${product.stock}`);
     formData.append('upload_file', product.image);
     return formData;
+  }
+
+  getProductImage(name: string): Observable<Blob> {
+    return this.httpClient.get(`${this.productImageURL}/${name}`, { responseType: 'blob' });
   }
 }
 
