@@ -14,6 +14,8 @@ export class StockCreateComponent implements OnInit {
 
   imageSrc: ArrayBuffer | string = null;
 
+  mIsSubmitted = false;
+
   constructor(private networkService: NetworkService,
     private location: Location) {
 
@@ -25,6 +27,7 @@ export class StockCreateComponent implements OnInit {
   submit(){
     this.networkService.addProduct(this.mProduct).subscribe(
       data => {
+          this.mIsSubmitted = true
          this.location.back()
       }
     )

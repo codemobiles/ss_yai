@@ -6,14 +6,15 @@ import { StockHomeComponent } from './components/stock/stock-home/stock-home.com
 import { StockCreateComponent } from './components/stock/stock-create/stock-create.component';
 import { StockEditComponent } from './components/stock/stock-edit/stock-edit.component';
 import { AuthenGuard } from './services/authen.guard';
+import { CancelFormGuard } from './services/cancel-form.guard';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'stock', component: StockHomeComponent, canActivate: [AuthenGuard]},
-  {path: 'stock/create', component: StockCreateComponent, canActivate: [AuthenGuard]},
-  {path: 'stock/edit/:id', component: StockEditComponent, canActivate: [AuthenGuard]},
+  {path: 'stock/create', component: StockCreateComponent, canActivate: [AuthenGuard], canDeactivate: [CancelFormGuard]},
+  {path: 'stock/edit/:id', component: StockEditComponent, canActivate: [AuthenGuard], canDeactivate: [CancelFormGuard]},
   {path: '**', redirectTo: 'login'},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
