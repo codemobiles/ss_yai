@@ -15,6 +15,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { NetworkService } from './services/network.service';
+import { ShopPaymentComponent } from './components/shop/shop-payment/shop-payment.component';
+import { ShopHomeComponent } from './components/shop/shop-home/shop-home.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NetworkService } from './services/network.service';
     StockEditComponent,
     HeaderComponent,
     FooterComponent,
-    MenuComponent
+    MenuComponent,
+    ShopPaymentComponent,
+    ShopHomeComponent
   ],
   imports: [
     BrowserModule,

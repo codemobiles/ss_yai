@@ -16,6 +16,8 @@ export class StockEditComponent implements OnInit {
 
   imageSrc: ArrayBuffer | string = null;
 
+  mIsSubmitted = false;
+
   constructor(private networkService: NetworkService, private activateRoute: ActivatedRoute,
     private location: Location) {
   }
@@ -38,12 +40,11 @@ export class StockEditComponent implements OnInit {
   }
 
   submit(){
-
-
     console.log(this.mProduct.image.toString());
 
     this.networkService.editProduct(this.mProduct, this.mProduct.productId).subscribe(
       data => {
+         this.mIsSubmitted = true;
          this.location.back()
       }
     )
